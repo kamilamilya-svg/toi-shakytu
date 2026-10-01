@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Айгүлдің 50 жас мерейтойы</title>
+    
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="Айгүлдің 50 жас мерейтойы">
+    <meta property="og:description" content="31 қазан 2026 | 18:00 | Жаңаөзен қаласы, Grand Tau мейрамханасы">
+    <meta property="og:type" content="website">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #faf7f2;
+            --primary: #c5a059;
+            --primary-dark: #9e7d3b;
+            --text-dark: #2c2523;
+            --text-muted: #7a6e6b;
+            --accent-pink: #e8d3ce;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --shadow: 0 10px 30px rgba(197, 160, 89, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        /* Particle Canvas */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Header / Nav */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            z-index: 100;
+            background: rgba(250, 247, 242, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+        }
+
+        .logo-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 2px;
+        }
+
+        .music-btn {
+            background: #fff;
+            border: 1px solid var(--primary);
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .music-btn.playing {
+            animation: rotatePulse 3s infinite linear;
+            background: var(--primary);
+            color: #fff;
+        }
+
+        @keyframes rotatePulse {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        /* Bottom Fixed Nav for Mobile */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid rgba(197, 160, 89, 0.2);
+            z-index: 100;
+        }
+
+        .bottom-nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            transition: color 0.3s;
+        }
+
+        .bottom-nav a:hover, .bottom-nav a.active {
+            color: var(--primary);
+        }
+
+        /* Container & Sections */
+        .section {
+            padding: 80px 20px 60px;
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 60px;
+            position: relative;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 4px;
+            margin-bottom: 5px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1.2s forwards 0.3s;
+        }
+
+        .hero-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1.2s forwards 0.6s;
+        }
+
+        .hero-tag {
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1.2s forwards 0.9s;
+        }
+
+        .hero-hosts {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1.2s forwards 1.2s;
+        }
+
+        .hero-date {
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            color: var(--text-dark);
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1.2s forwards 1.5s;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Headings */
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .ornament {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            margin: 0 auto 30px;
+        }
+
+        /* Countdown */
+        .countdown-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .countdown-box {
+            background: var(--card-bg);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            border-radius: 12px;
+            padding: 15px 5px;
+            box-shadow: var(--shadow);
+        }
+
+        .countdown-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .countdown-label {
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        .event-started-msg {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            color: var(--primary-dark);
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--primary);
+            box-shadow: var(--shadow);
+        }
+
+        /* Invitation Text Section */
+        .invitation-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 35px 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .invitation-header {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            line-height: 1.5;
+        }
+
+        .invitation-body {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .invitation-footer {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        /* Event Info Cards */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            border-radius: 12px;
+            padding: 20px 10px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .info-title {
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.3;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            width: 100%;
+            max-width: 320px;
+            margin: 8px auto;
+            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.25);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.95;
+            transform: translateY(-2deg);
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: var(--primary-dark);
+            border: 1px solid var(--primary);
+        }
+
+        /* RSVP Form */
+        .rsvp-form {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid rgba(197, 160, 89, 0.4);
+            border-radius: 8px;
+            background: #fff;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .radio-label input {
+            accent-color: var(--primary);
+            width: 18px;
+            height: 18px;
+        }
+
+        .counter-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .counter-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--primary);
+            background: #fff;
+            color: var(--primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .counter-val {
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 30px;
+            text-align: center;
+        }
+
+        /* Map Preview Card */
+        .map-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .venue-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .venue-address {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        /* Toast Message */
+        .toast {
+            position: fixed;
+            bottom: 70px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(44, 37, 35, 0.9);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Footer */
+        footer {
+            padding: 50px 20px 100px;
+            text-align: center;
+            background: linear-gradient(180deg, transparent, rgba(232, 211, 206, 0.3));
+        }
+
+        /* Animations on Scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 480px) {
+            .hero-title { font-size: 2.8rem; }
+            .hero-subtitle { font-size: 1.8rem; }
+            .info-cards { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Particle Background Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Audio Element -->
+    <audio id="bg-audio" loop preload="none"></audio>
+
+    <!-- Top Header -->
+    <header>
+        <div class="logo-text">M & A</div>
+        <button class="music-btn" id="musicToggle" aria-label="Музыканы қосу/өшіру">🎵</button>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="section hero" id="home">
+            <h1 class="hero-title">АЙГҮЛ</h1>
+            <div class="hero-subtitle">50 ЖАС</div>
+            <div class="hero-tag">Мерейтой</div>
+            <div class="hero-hosts">МӘДИ – АЙГҮЛ</div>
+            <div class="hero-date">31 • 10 • 2026 | 18:00</div>
+        </section>
+
+        <!-- Countdown Section -->
+        <section class="section reveal" id="countdown">
+            <h2 class="section-title">МЕРЕЙТОЙҒА ДЕЙІН</h2>
+            <div class="ornament"></div>
+            
+            <div id="countdown-display" class="countdown-container">
+                <div class="countdown-box">
+                    <div class="countdown-num" id="days">00</div>
+                    <div class="countdown-label">КҮН</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-num" id="hours">00</div>
+                    <div class="countdown-label">САҒАТ</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-num" id="minutes">00</div>
+                    <div class="countdown-label">МИНУТ</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-num" id="seconds">00</div>
+                    <div class="countdown-label">СЕКУНД</div>
+                </div>
+            </div>
+            <div id="event-started-msg" class="event-started-msg" style="display: none;">
+                БҮГІН — АЙГҮЛДІҢ 50 ЖАС МЕРЕЙТОЙЫ! 🌸
+            </div>
+        </section>
+
+        <!-- Invitation Text Section -->
+        <section class="section reveal" id="invitation">
+            <div class="invitation-card">
+                <div class="invitation-header">
+                    ҚҰРМЕТТІ АҒАЙЫН-ТУЫС,<br>
+                    АРДАҚТЫ ДОС-ЖАРАН,<br>
+                    ҚАДІРЛІ ҚОНАҚТАР!
+                </div>
+                <div class="invitation-body">
+                    Сіздерді аяулы <strong>Айгүлдің 50 жас мерейтойына</strong> арналған ақ дастарханымыздың қадірлі қонағы болуға шын жүректен шақырамыз!<br><br>
+                    Бұл ерекше қуанышымызды бірге бөлісіп, мерейлі жасқа арналған мерекелік кешіміздің сәнін келтіріңіздер!
+                </div>
+                <div class="invitation-footer">
+                    Сіздерді қуанышымыздың төрінен көруге асыға күтеміз! ❤️
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Details Cards -->
+        <section class="section reveal" id="details">
+            <h2 class="section-title">ТОЙ ТУРАЛЫ АҚПАРАТ</h2>
+            <div class="ornament"></div>
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="info-icon">📅</div>
+                    <div class="info-title">КҮНІ</div>
+                    <div class="info-value">31 қазан<br>2026 жыл</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">⏰</div>
+                    <div class="info-title">УАҚЫТЫ</div>
+                    <div class="info-value">18:00</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">📍</div>
+                    <div class="info-title">МЕКЕНІ</div>
+                    <div class="info-value">Grand Tau<br>мейрамханасы</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="section reveal" id="location">
+            <h2 class="section-title">ТОЙ ӨТЕТІН МЕКЕН</h2>
+            <div class="ornament"></div>
+            <div class="map-card">
+                <div class="venue-name">Grand Tau мейрамханасы</div>
+                <div class="venue-address">Жаңаөзен қаласы</div>
+                <a id="mapBtn" href="#" target="_blank" class="btn btn-primary">
+                    📍 2GIS-ТЕН КӨРУ
+                </a>
+            </div>
+        </section>
+
+        <!-- RSVP Section -->
+        <section class="section reveal" id="rsvp">
+            <h2 class="section-title">СІЗДІ КҮТЕМІЗ!</h2>
+            <div class="ornament"></div>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">
+                Мерекелік кешімізге қатысатыныңызды алдын ала хабарлап қойсаңыз, біз үшін үлкен қуаныш.
+            </p>
+            <form id="rsvpForm" class="rsvp-form">
+                <div class="form-group">
+                    <label class="form-label" for="guestName">Аты-жөніңіз:</label>
+                    <input type="text" id="guestName" class="form-input" required placeholder="Есіміңізді жазыңыз">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Қатысуыңыз:</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="attendance" value="Қатысамын" checked>
+                            Қатысамын
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="attendance" value="Өкінішке қарай, қатыса алмаймын">
+                            Өкінішке қарай, қатыса алмаймын
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="guestCountGroup">
+                    <label class="form-label">Қонақ саны:</label>
+                    <div class="counter-group">
+                        <button type="button" class="counter-btn" id="btnMinus">-</button>
+                        <span class="counter-val" id="guestCountVal">1</span>
+                        <button type="button" class="counter-btn" id="btnPlus">+</button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 15px;">
+                    ҚАТЫСУДЫ РАСТАУ
+                </button>
+            </form>
+        </section>
+
+        <!-- Share Section -->
+        <section class="section reveal" id="share">
+            <h2 class="section-title">БӨЛІСУ</h2>
+            <div class="ornament"></div>
+            <a id="whatsappBtn" href="#" target="_blank" class="btn btn-primary" style="background: #25D366; color: #fff;">
+                💬 WHATSAPP АРҚЫЛЫ ШАҚЫРУ
+            </a>
+            <button id="copyLinkBtn" class="btn btn-secondary">
+                🔗 СІЛТЕМЕНІ КӨШІРУ
+            </button>
+        </section>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Сілтеме көшірілді! ✓</div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="#home"><span>🏠</span>Басты бет</a>
+        <a href="#invitation"><span>💌</span>Шақыру</a>
+        <a href="#location"><span>📍</span>Мекенжай</a>
+        <a href="#rsvp"><span>❤️</span>RSVP</a>
+    </nav>
+
+    <!-- Footer -->
+    <footer>
+        <div style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; color: var(--primary);">
+            МӘДИ – АЙГҮЛ
+        </div>
+        <div style="font-size: 0.85rem; color: var(--text-muted); margin: 5px 0 15px;">
+            31.10.2026 | 18:00
+        </div>
+        <div style="font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--primary-dark);">
+            СІЗДЕРДІ КҮТЕМІЗ! ❤️
+        </div>
+    </footer>
+
+    <!-- JavaScript logic -->
+    <script>
+        // CONFIG
+        const CONFIG = {
+            targetDateISO: '2026-10-31T18:00:00+05:00',
+            mapUrl: 'https://2gis.kz/zhanaozen/search/Grand%20Tau',
+            musicFile: 'music.mp3',
+            siteUrl: window.location.href,
+            whatsappText: `Сәлеметсіз бе! 🌸\nСізді Мәди мен Айгүлдің 50 жас мерейтойына шақырамыз!\n\n📅 31 қазан 2026 жыл\n⏰ 18:00\n📍 Жаңаөзен қаласы, Grand Tau мейрамханасы\n\nТолық шақырту:\n${window.location.href}\n\nСізді қуанышымыздың төрінен күтеміз! ❤️`
+        };
+
+        // DOM elements
+        const audio = document.getElementById('bg-audio');
+        const musicToggle = document.getElementById('musicToggle');
+        const toast = document.getElementById('toast');
+
+        audio.src = CONFIG.musicFile;
+
+        // Music Toggle
+        let isPlaying = false;
+        musicToggle.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                musicToggle.classList.remove('playing');
+            } else {
+                audio.play().then(() => {
+                    musicToggle.classList.add('playing');
+                }).catch(() => {
+                    showToast('Музыка файлы табылмады немесе ойнатуға рұқсат берілмеді');
+                });
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // Toast Helper
+        function showToast(msg) {
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Countdown Logic
+        function updateCountdown() {
+            const targetTime = new Date(CONFIG.targetDateISO).getTime();
+            const now = new Date().getTime();
+            const diff = targetTime - now;
+
+            if (diff <= 0) {
+                document.getElementById('countdown-display').style.display = 'none';
+                document.getElementById('event-started-msg').style.display = 'block';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Map Button Link
+        document.getElementById('mapBtn').href = CONFIG.mapUrl;
+
+        // WhatsApp Button Link
+        document.getElementById('whatsappBtn').href = `https://wa.me/?text=${encodeURIComponent(CONFIG.whatsappText)}`;
+
+        // Copy Link Button
+        document.getElementById('copyLinkBtn').addEventListener('click', () => {
+            navigator.clipboard.writeText(CONFIG.siteUrl).then(() => {
+                showToast('Сілтеме көшірілді! ✓');
+            }).catch(() => {
+                showToast('Көшіру мүмкін болмады');
+            });
+        });
+
+        // RSVP Counter
+        let guestCount = 1;
+        const countValEl = document.getElementById('guestCountVal');
+        document.getElementById('btnPlus').addEventListener('click', () => {
+            guestCount++;
+            countValEl.textContent = guestCount;
+        });
+        document.getElementById('btnMinus').addEventListener('click', () => {
+            if (guestCount > 1) {
+                guestCount--;
+                countValEl.textContent = guestCount;
+            }
+        });
+
+        // RSVP Form Submit
+        document.getElementById('rsvpForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('guestName').value;
+            const attendance = document.querySelector('input[name="attendance"]:checked').value;
+            
+            showToast('Рақмет! Жауабыңыз қабылданды ❤️');
+            
+            setTimeout(() => {
+                alert(`Рақмет, ${name}! Жауабыңыз қабылданды ❤️\nМәртебесі: ${attendance}\nҚонақ саны: ${guestCount}`);
+            }, 300);
+        });
+
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+        function checkScroll() {
+            const triggerBottom = window.innerHeight * 0.85;
+            revealElements.forEach(el => {
+                const top = el.getBoundingClientRect().top;
+                if (top < triggerBottom) {
+                    el.classList.add('active');
+                }
+            });
+        }
+        window.addEventListener('scroll', checkScroll);
+        checkScroll();
+
+        // Floating Gold & Rose Petal Canvas Animation
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height - height;
+                this.size = Math.random() * 4 + 2;
+                this.speedY = Math.random() * 1 + 0.5;
+                this.speedX = Math.random() * 0.6 - 0.3;
+                this.opacity = Math.random() * 0.5 + 0.3;
+                this.color = Math.random() > 0.5 ? '#c5a059' : '#e8d3ce';
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += Math.sin(this.y * 0.01) * 0.5;
+                if (this.y > height) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.opacity;
+                ctx.fill();
+            }
+        }
+
+        const particles = Array.from({ length: 30 }, () => new Particle());
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+    </script>
+</body>
+</html>
